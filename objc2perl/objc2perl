@@ -8,7 +8,7 @@
 # objc2perl is a objc2 perl wrapper package                            
 #
 # AUTHOR
-#   v-zor 
+#   v-zor <elvish.archwizard@gmail.com> 
 #
 # COPYRIGHT
 #   Copyright (C) 2013 v-zor  
@@ -121,7 +121,7 @@ L<frost|atlas>
 
 =head1 AUTHOR
 
-v-zor E<lt>v-zorE<gt>
+v-zor E<lt>elvish.archwizard@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
