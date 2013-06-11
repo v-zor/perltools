@@ -5,7 +5,7 @@
 #
 # DESCRIPTION
 #                                                                       
-# objc2perl is a objc2 perl wrapper package                            
+# objc2perl (hm2xs) is a objc2 perl wrapper package                            
 #
 # AUTHOR
 #   v-zor <elvish.archwizard@gmail.com> 
@@ -14,7 +14,7 @@
 #   Copyright (C) 2013 v-zor  
 #   All Rights Reserved.
 #
-#   This module is free software; you can redistribute it and/or
+#   This program is free software; you can redistribute it and/or
 #   modify it under the same terms as Perl itself.
 #
 #------------------------------------------------------------------------
@@ -30,9 +30,9 @@
 
 package ObjC2Perl;
 
-use strict;
-use Getopt::Long;                       # Basic cmdline arg handling
-use FileHandle;                         # 
+###use strict;
+###use Getopt::Long;                       # Basic cmdline arg handling
+###use FileHandle;                         # 
 
 my $NAME     = "objc2perl";
 my $HOME     = $ENV{ HOME } || '';
@@ -43,6 +43,42 @@ my %versions;
 $versions{objc2perl} = '$Revision: 0.1 $ ';  
 
 #print STDERR "Starting main program\n" if ($opt_debug>1);
+
+sub unchop {
+	my $str = shift;
+	$str .= "\n";
+	return $str;
+}
+
+
+my $FH,$contents;
+
+open ($FH, "<" $ARGV[1]); 
+
+while (<FH>) {
+	$contents .= chop(//);
+
+	if ($_) and unchop($contents);
+};	
+
+parse($contents);
+
+1; ### end of program, functions follow
+
+sub parse {
+	my $contents = shift;
+	my $word,$interfacename;
+	while (not /\@interface/) {	
+		my $foo = $_;	
+
+		/\#import/ or $foo =~ /\#include/ or $foo =~ /\/\*/ or ($opencomment and /\*\//) or die "Unknown pre interface phrase!";
+	};
+	if ($_ == /\@interface(\W+)(\w+)/) {
+
+		$interfacename = $2;		
+
+	};
+}; 
 
 __END__
 
@@ -56,10 +92,10 @@ objc2perl - ObjC2Perl
 objc2perl [options] [ [ args ] ]
 
  Options:
-   -V, --version                 display version, then exit
-   -h, --help                    print usage, then exit
-       --man                     display manual (POD)
-   -d, --debug=integer           show debug messages
+#   -V, --version                 display version, then exit
+#   -h, --help                    print usage, then exit
+#       --man                     display manual (POD)
+#   -d, --debug=integer           show debug messages
 
 =head1 DESCRIPTION
 
