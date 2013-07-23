@@ -1,0 +1,5 @@
+This is a cd ripper using CDDB_get and CDDB perl CPAN modules.
+
+It converts your cd to oggs files without spaces.
+
+run it with the appropriate perl command, you need to have cdparanoia and oggenc installed.
